@@ -18,14 +18,18 @@ Claude Code と Codex の使用量を macOS のメニューバーに表示する
 → [saba383810/coding-agent-usage-bar](https://github.com/saba383810/coding-agent-usage-bar)
 
 ```sh
-brew install --cask --no-quarantine saba383810/tap/coding-agent-usage-bar
+brew install --cask saba383810/tap/coding-agent-usage-bar
 ```
 
-未署名のため `--no-quarantine` が必要。付け忘れて Gatekeeper に止められた場合は
-次のコマンドで解除できる。
+未署名なので、Gatekeeper に止められないよう Cask がインストール後に quarantine 属性を外す。
+Homebrew 7 以降は tap の trust が必要だが、上のように `saba383810/tap/...` の完全修飾名で
+インストールすれば自動で trust される。
+
+`version :latest` なので、通常の `brew upgrade` では更新されない。
+新しいリリースを入れる時は次のとおり。
 
 ```sh
-xattr -dr com.apple.quarantine /Applications/CodingAgentUsageBar.app
+brew upgrade --cask --greedy coding-agent-usage-bar
 ```
 
 アンインストールは次のとおり (`--zap` を付けると設定も消える)。
